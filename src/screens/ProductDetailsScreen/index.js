@@ -6,14 +6,20 @@ import {
   FlatList,
   useWindowDimensions,
   ScrollView,
-  Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import products from '../../data/products';
-const product = products[0];
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { addCartItem } from '../../redux/store/cartSlice';
+
 const ProductDetailScreen = () => {
+  const dispatch = useDispatch();
+  const product = useSelector(state => state.product.selectedProduct);
   const windowWidth = useWindowDimensions().width;
-  const addToCart = () => {};
+  const addToCart = () => {
+    dispatch(addCartItem({ product }));
+  };
   return (
     <View>
       <ScrollView>
@@ -35,9 +41,13 @@ const ProductDetailScreen = () => {
           <Text style={styles.description}>{product.description}</Text>
         </View>
       </ScrollView>
-      <Pressable onPress={addToCart} style={styles.button}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={addToCart}
+        style={styles.button}
+      >
         <Text style={styles.buttonText}>Add to Cart</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };
