@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 const CartListItem = ({ cartItem }) => {
   const increaseQuantity = () => {};
@@ -38,38 +38,38 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingHorizontal: 20,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   contentContainer: {
     flex: 1,
     marginLeft: 10,
   },
   image: {
-    width: "40%",
+    width: '40%',
     aspectRatio: 1,
   },
   name: {
-    fontWeight: "500",
+    fontWeight: '500',
     fontSize: 18,
   },
   size: {
     fontSize: 16,
-    color: "gray",
+    color: '#343a40',
   },
   quantity: {
     marginHorizontal: 10,
-    fontWeight: "bold",
-    color: "gray",
+    fontWeight: 'bold',
+    color: '#343a40',
   },
   footer: {
-    marginTop: "auto",
-    flexDirection: "row",
-    alignItems: "center",
+    marginTop: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   itemTotal: {
     fontSize: 16,
-    marginLeft: "auto",
-    fontWeight: "500",
+    marginLeft: 'auto',
+    fontWeight: '500',
   },
 });
 

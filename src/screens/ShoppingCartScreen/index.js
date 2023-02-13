@@ -1,0 +1,82 @@
+import { FlatList, View, Text, StyleSheet, Pressable } from 'react-native';
+import React from 'react';
+import cart from '../../data/cart';
+import CartListItem from '../../components/CartListItem';
+const ShoppingCartTotal = () => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.row}>
+        <Text style={styles.text}>Subtotal</Text>
+        <Text style={styles.text}>300,00 US$</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.text}>Delivery</Text>
+        <Text style={styles.text}>20,00 US$</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.bold}>Total</Text>
+        <Text style={styles.bold}>320,00 US$</Text>
+      </View>
+    </View>
+  );
+};
+const ShoppingCartScreen = () => {
+  return (
+    <>
+      <FlatList
+        data={cart}
+        renderItem={({ item }) => <CartListItem cartItem={item} />}
+        ListFooterComponent={ShoppingCartTotal}
+      />
+      <Pressable style={styles.button}>
+        <Text style={styles.buttonText}>Checkout</Text>
+      </Pressable>
+    </>
+  );
+};
+
+export default ShoppingCartScreen;
+export const styles = StyleSheet.create({
+  container: {
+    margin: 20,
+    padding: 10,
+    borderTopColor: '#e3e3e3',
+    borderTopWidth: 1,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  text: {
+    fontSize: 16,
+    color: '#868e96',
+  },
+  bold: {
+    fontWeight: '500',
+    fontSize: 16,
+    color: '#343a40',
+  },
+  button: {
+    backgroundColor: '#212529',
+    position: 'absolute',
+    bottom: 20,
+    padding: 10,
+    width: '80%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.31,
+  },
+  buttonText: {
+    color: '#f8f9fa',
+    fontSize: 18,
+    fontWeight: '500',
+  },
+});
