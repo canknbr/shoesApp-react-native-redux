@@ -7,19 +7,58 @@ import {
   useWindowDimensions,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import { useRoute, useNavigation } from '@react-navigation/native';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { addCartItem } from '../../redux/store/cartSlice';
+import { useGetProductQuery } from '../../redux/store/apiSlice';
 
-const ProductDetailScreen = () => {
+const ProductDetailScreen = ({route}) => {
+  const {id} = route.params;
+
+
+  const { data, error, isLoading } = useGetProductQuery(id);
+
+
   const dispatch = useDispatch();
-  const product = useSelector(state => state.product.selectedProduct);
   const windowWidth = useWindowDimensions().width;
+  const product = data?.data;
   const addToCart = () => {
     dispatch(addCartItem({ product }));
   };
+ 
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <ActivityIndicator size={'large'} />
+      </View>
+    );
+  }
+  if (error) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text>Something went wrong</Text>
+      </View>
+    );
+  }
+
+
+
   return (
     <View>
       <ScrollView>

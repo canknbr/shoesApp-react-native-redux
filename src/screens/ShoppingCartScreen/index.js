@@ -14,12 +14,13 @@ import {
   selectDeliveryFee,
   selectTotal,
 } from '../../redux/store/cartSlice';
+import { useCreateOrderMutation } from '../../redux/store/apiSlice';
 
 const ShoppingCartTotal = () => {
   const sub = useSelector(subTotal);
   const fee = useSelector(selectDeliveryFee);
   const total = useSelector(selectTotal);
-
+const { data, error, isLoading } = useCreateOrderMutation();
   return (
     <View style={styles.container}>
       <View style={styles.row}>

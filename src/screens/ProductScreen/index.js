@@ -1,19 +1,29 @@
-import { FlatList, Image, StyleSheet, Pressable, View } from 'react-native';
-import products from '../../data/products';
-import { setSelectedProduct } from '../../redux/store/productSlice';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+  View,
+  Text,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
+import { useGetProductsQuery } from '../../redux/store/apiSlice';
 
 const ProductScreen = () => {
+  const { data, error, isLoading } = useGetProductsQuery();
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
-    const products = useSelector(state => state.product.products);
+
   const renderImage = ({ item }) => {
     return (
       <Pressable
         onPress={() => {
-          dispatch(setSelectedProduct(item.id));
-          navigation.navigate('Product Detail');
+          navigation.navigate('Product Detail', {
+            id: item._id,
+          });
         }}
         style={styles.itemContainer}
       >
@@ -22,7 +32,33 @@ const ProductScreen = () => {
     );
   };
 
-
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <ActivityIndicator size={'large'} />
+      </View>
+    );
+  }
+  if (error) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text>Something went wrong</Text>
+      </View>
+    );
+  } 
+const products = data.data;
   return <FlatList data={products} renderItem={renderImage} numColumns={2} />;
 };
 

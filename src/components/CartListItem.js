@@ -3,11 +3,12 @@ import { Feather } from '@expo/vector-icons';
 import { changeQuantity } from '../redux/store/cartSlice';
 import { useDispatch } from 'react-redux';
 const CartListItem = ({ cartItem }) => {
+
   const dispatch = useDispatch();
   const increaseQuantity = () => {
     dispatch(
       changeQuantity({
-        id: cartItem.product.id,
+        id: cartItem.product._id,
         quantity: 1,
       })
     );
@@ -16,7 +17,7 @@ const CartListItem = ({ cartItem }) => {
   const decreaseQuantity = () => {
     dispatch(
       changeQuantity({
-        id: cartItem.product.id,
+        id: cartItem.product._id,
         quantity: -1,
       })
     );
