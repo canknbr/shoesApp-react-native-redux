@@ -3,16 +3,17 @@ import products from '../../data/products';
 import { setSelectedProduct } from '../../redux/store/productSlice';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+
 const ProductScreen = () => {
-  const navigation = useNavigation();
-  const products = useSelector(state => state.product.products);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+    const products = useSelector(state => state.product.products);
   const renderImage = ({ item }) => {
     return (
       <Pressable
         onPress={() => {
           dispatch(setSelectedProduct(item.id));
-          navigation.navigate('Product Detail', );
+          navigation.navigate('Product Detail');
         }}
         style={styles.itemContainer}
       >
@@ -20,6 +21,8 @@ const ProductScreen = () => {
       </Pressable>
     );
   };
+
+
   return <FlatList data={products} renderItem={renderImage} numColumns={2} />;
 };
 
